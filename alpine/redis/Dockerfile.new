@@ -1,0 +1,36 @@
+# 镜像基于 weihoop/alpine镜像制作 
+FROM weihoop/alpine:3.8
+MAINTAINER "Liuhongwei <weihoop@gmail.com>"
+
+ENV REDIS_VERSION 3.2.12
+ENV REDIS_HOME="/usr/local/redis/"
+ENV PATH=${REDIS_HOME}/bin:${PATH}
+
+ADD redis-3.2.12.tar.gz /usr/local/src
+
+RUN apk add --no-cache 'su-exec>=0.2' coreutils gcc jemalloc-dev linux-headers make musl-dev &&  \
+   ## 开始编译
+   cd /usr/local/src/redis-3.2.12 && \
+   make && \ 
+   make PREFIX=/usr/local/redis-3.2.12 install && \
+   ln -s /usr/local/redis-3.2.12 /usr/local/redis && \
+   rm -r /usr/local/src/redis-3.2.12 && \
+   runDeps="$( \
+           scanelf --needed --nobanner --format '%n#p' --recursive /usr/local \
+	   | tr ',' '\n' \
+           | sort -u \
+           | awk 'system("[ -e /usr/local/lib/" $1 " ]") == 0 { next } { print "so:" $1 }' \
+   )" && \
+   apk add --virtual .redis-rundeps $runDeps && \
+   apk del .build-deps &&  \ 
+   mkdir -p /data/redis/{rdbs,logs} && \
+   chown redis.redis -R  /data/redis
+
+COPY redis.conf /etc/redis.conf
+COPY docker-entrypoint /usr/local/redis/bin/docker-entrypoint
+
+ENTRYPOINT ["docker-entrypoint"]
+
+CMD ["redis-server","/etc/redis.conf"]
+
+EXPOSE 6379

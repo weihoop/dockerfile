@@ -1,0 +1,10 @@
+### 镜像创建方式
+
+alpine   官方镜像  
+jdk      自制镜像 二进制  
+tomcat   自制镜像 二进制
+mongodb  自制镜像 apk
+mysql    官方镜像
+nginx    官方镜像
+php-fpm  官方镜像
+redis    官方镜像     
