@@ -17,4 +17,4 @@ docker exec -it mysql1 bash
 
 ### 参考: 
 
-- https://github.com/cytopia/docker-mysql-5.7/blob/master/Dockerfile：
+- https://github.com/cytopia/docker-mysql-5.7/blob/master/Dockerfile
