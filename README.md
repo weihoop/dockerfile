@@ -1,4 +1,4 @@
-## Dockerfile
+## 说明 
 
 #### 存放常用的基础环境Dockerfile
 
@@ -7,4 +7,4 @@
 - alpine
 - centos
 
-#### 推荐使用apline版本。
+推荐使用apline版本。
