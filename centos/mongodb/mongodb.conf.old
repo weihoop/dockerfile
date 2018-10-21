@@ -1,0 +1,16 @@
+## MongoDB Configuration File.
+
+fork = true
+#bind_ip = 127.0.0.1
+port = 27017
+dbpath = /data/mongodb/data
+logpath = /data/mongodb/logs/mongod.log
+unixSocketPrefix = /tmp
+
+maxConns = 1024
+quiet = true
+auth = no
+logappend = true
+journal = true
+nohttpinterface = yes
+#autoresync=true

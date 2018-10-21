@@ -1,0 +1,19 @@
+[client]
+socket = /var/sock/mysqld/mysqld.sock
+[mysql]
+socket = /var/sock/mysqld/mysqld.sock
+[mysqld]
+skip-host-cache
+skip-name-resolve
+datadir = /var/lib/mysql
+user = mysql
+port = 3306
+bind-address = 0.0.0.0
+socket = /var/sock/mysqld/mysqld.sock
+pid-file = /var/run/mysqld/mysqld.pid
+general_log_file = /var/log/mysql/query.log
+slow_query_log_file = /var/log/mysql/slow.log
+log-error = /var/log/mysql/error.log
+!includedir /etc/my.cnf.d/
+!includedir /etc/mysql/conf.d/
+!includedir /etc/mysql/docker-default.d/

@@ -1,0 +1,15 @@
+### build command
+
+```
+docker build --no-cache -t 'weihoop/nginx:1.14.0' .
+```
+
+### docker run example
+
+```
+docker run -itd --name jdk1 weihoop/jdk:1.8.0_121 bash
+```
+
+### dockerfile参考
+
+https://github.com/nginxinc/docker-nginx/tree/d377983a14b214fcae4b8e34357761282aca788f/stable/alpine

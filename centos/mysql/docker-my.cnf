@@ -1,0 +1,170 @@
+## This configration file opts for MySQL 5.7.
+## author: liuhongwei
+
+[client]
+port = 3306
+socket = /tmp/mysql.sock
+
+[mysql]
+prompt="\\u@\\h:\\d \\r:\\m:\\s >"
+
+[mysqld]
+
+##### base setting #####
+port = 3306
+socket = /tmp/mysql.sock
+sql_mode = "STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION,NO_ZERO_DATE,NO_ZERO_IN_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER"
+back_log = 1024
+autocommit = 1
+character_set_server=utf8
+transaction_isolation = READ-COMMITTED
+explicit_defaults_for_timestamp = 1
+max_allowed_packet = 256M
+## 大小写敏感，1是对大小写不敏感
+lower_case_table_names = 1
+
+##### connections #####
+max_connections = 1024
+max_connect_errors = 102400
+interactive_timeout = 1800
+wait_timeout = 180
+lock_wait_timeout = 1800
+max_prepared_stmt_count = 1000000
+skip_name_resolve = 1
+skip-ssl
+
+##### table cache performance settings #####
+table_open_cache = 4096 ##5.7 new,增大缓存表的数量
+table_definition_cache = 4096 ##5.7 new,调大缓存frm表的数量
+table_open_cache_instances = 64 ##5.7 new,提升大并发下的性能
+
+####### add start #######
+pid_file = /data/mysql/mysqld.pid
+datadir = /data/mysql/data
+slave_load_tmpdir = /data/mysql/data
+tmpdir = /tmp
+local_infile = off
+
+##### Log setting #####
+log_error = /data/mysql/logs/error.log
+slow_query_log = 1
+slow_query_log_file = /data/mysql/logs/slow.log
+log_timestamps = system ##5.7 new
+log_queries_not_using_indexes = 1
+log_slow_admin_statements = 1
+log_slow_slave_statements = 1
+log_throttle_queries_not_using_indexes = 10
+long_query_time = 2
+expire_logs_days = 15
+show_compatibility_56 = 1 ##5.7 new
+min_examined_row_limit = 100
+event_scheduler = 1 # 默认启用事件功能
+
+##### Replication settings #####
+## Replication Master Server (default)
+server-id = 111
+log_bin = /data/mysql/logs/binlog/mysqld-bin
+master_info_repository = TABLE
+relay_log_info_repository = TABLE
+sync_binlog = 1
+max_binlog_size = 1G
+gtid_mode = ON
+enforce_gtid_consistency = 1
+binlog_format = ROW
+binlog-rows-query-log-events = 1 # 开启RBR模式下SQL记录
+log-bin-trust-function-creators = 1
+
+## Replication Slave Server (comment out master section to use this)
+report_host  = mysql-docker 
+report_port = 3306
+relay_log = /data/mysql/logs/relaylog/relay-bin
+binlog_gtid_simple_recovery = 1 ##5.7 new
+slave_skip_errors = all
+slave-rows-search-algorithms = 'INDEX_SCAN,HASH_SCAN'
+max_relay_log_size = 1G
+#relay_log_space_limit = 0
+relay_log_purge  = 1
+replicate-same-server-id = 0    # use the default setting of 0, to prevent infinite loops caused by circular replication.
+slave_parallel_workers = 16
+slave-parallel-type = LOGICAL_CLOCK ##5.7 new
+slave-parallel-workers = 16
+slave_preserve_commit_order=1
+slave_transaction_retries=128
+log-slave-updates = 1
+#master_delay = 60
+#skip-slave-start
+#read_only = 1
+
+##### MyISAM & session memory setting  #####
+key_buffer_size = 64M
+read_buffer_size = 32M
+read_rnd_buffer_size = 32M
+sort_buffer_size = 64M
+join_buffer_size = 128M
+thread_cache_size = 64
+tmp_table_size = 512M
+max_heap_table_size = 128M
+query_cache_size = 64M
+query_cache_limit = 2M
+ft_min_word_len = 1
+bulk_insert_buffer_size = 64M
+myisam_sort_buffer_size = 128M
+myisam_max_sort_file_size = 256M
+myisam_repair_threads = 1
+
+#####  INNODB setting  ######
+innodb_data_home_dir = /data/mysql/data
+innodb_log_group_home_dir = /data/mysql/data/
+innodb_undo_directory = /data/mysql/data/
+innodb_page_size = 16K
+innodb_page_cleaners = 16 ##5.7 new
+innodb_buffer_pool_size = 256M  ## 默认128M
+innodb_buffer_pool_instances = 16
+innodb_buffer_pool_load_at_startup = 1
+innodb_buffer_pool_dump_at_sh
+innodb_buffer_pool_dump_pct = 40 ##5.7 new
+innodb_data_file_path = ibdata1:128M:autoextend
+innodb_log_file_size = 256M
+innodb_log_files_in_group = 2
+innodb_log_buffer_size = 16M
+innodb_sort_buffer_size = 64M
+innodb_write_io_threads = 24
+innodb_read_io_threads = 16
+innodb_file_per_table = 1
+innodb_file_format = Barracuda
+innodb_file_format_max = Barracuda
+innodb_undo_logs = 128
+innodb_undo_tablespaces = 3
+innodb_undo_log_truncate = 1 ##5.7 new
+innodb_flush_neighbors = 0
+innodb_flush_method = O_DSYNC
+innodb_flush_log_at_trx_commit = 1
+innodb_max_undo_log_size = 1G ##5.7 new
+innodb_lru_scan_depth = 4096
+innodb_io_capacity = 10000
+innodb_io_capacity_max = 20000
+innodb_thread_concurrency = 64 ##CPU Core * ２
+innodb_print_all_deadlocks = 1
+innodb_strict_mode = 1
+innodb_stats_persistent_sample_pages = 64
+innodb_autoinc_lock_mode = 2
+innodb_online_alter_log_max_size = 1G ##5.7 new
+innodb_open_files = 4096 ##5.7 new,增大InnoDB层缓存文件句柄的数量
+innodb_purge_threads = 4
+innodb_purge_rseg_truncate_frequency = 128 ##5.7 new
+innodb_large_prefix = 1
+innodb_max_dirty_pages_pct = 60
+innodb_lock_wait_timeout = 120
+transaction_write_set_extraction = MURMUR32
+
+##### semi sync replication settings #####
+plugin_dir = /usr/lib64/mysql/plugin 
+plugin_load = "rpl_semi_sync_master=semisync_master.so;rpl_semi_sync_slave=semisync_slave.so;validate_password.so"
+rpl_semi_sync_master_enabled = 1
+rpl_semi_sync_slave_enabled = 1
+rpl_semi_sync_master_timeout = 3000
+##### password plugin #####
+validate_password_policy = 2
+validate-password = FORCE_PLUS_PERMANENT
+
+############ The end ############
