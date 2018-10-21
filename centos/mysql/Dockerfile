@@ -1,14 +1,14 @@
-# 镜像基于weihoop/centos镜像制作
+# Create mysql docker image
 FROM weihoop/centos
 MAINTAINER "Liuhongwei <weihoop@gmail.com>"
 
 ## Labels
 LABEL \
-	name="weihoop"'s MySQL 5.7 Image" \
-	image="mysql-5.7" \
-	vendor="cytopia" \
-	license="MIT" \
-	build-date="2018-1-1"
+    name="weihoop's MySQL 5.7 Image" \
+    image="mysql-5.7" \
+    vendor="cytopia" \
+    license="MIT" \
+    build-date="2018-1-1"
 
 ### Envs
 
@@ -24,13 +24,13 @@ ENV YUM_REPO_URL="https://dev.mysql.com/get/mysql57-community-release-el7-10.noa
     MYSQL_BASE_INCL="/etc/my.cnf.d" \
     MYSQL_CUST_INCL1="/etc/mysql/conf.d" \
     MYSQL_CUST_INCL2="/etc/mysql/docker-default.d" \
-    MYSQL_DEF_DAT="/data/mysql/data" \
-    MYSQL_DEF_PID="/data/mysql" \
+    MYSQL_DEF_DAT="/data/db" \
+    MYSQL_DEF_PID="/data" \
     MYSQL_DEF_SCK="/tmp" \
-    MYSQL_DEF_LOG="/data/mysql/logs" \
-    MYSQL_LOG_SLOW="/data/mysql/logs/slow.log" \
-    MYSQL_LOG_ERROR="/data/mysql/logs/error.log" \
-    MYSQL_LOG_QUERY="/data/mysql/logs/query.log"
+    MYSQL_DEF_LOG="/data/logs" \
+    MYSQL_LOG_SLOW="/data/logs/slow.log" \
+    MYSQL_LOG_ERROR="/data/logs/error.log" \
+    MYSQL_LOG_QUERY="/data/logs/query.log"
 
 ### Install
 RUN groupadd -g ${MY_GID} -r ${MY_GROUP} && \
@@ -108,10 +108,12 @@ RUN groupadd -g ${MY_GID} -r ${MY_GROUP} && \
 
 ## Bootstrap Scipts
 COPY docker-entrypoint.sh /usr/local/bin/docker-entrypoint.sh
+#COPY docker-my.cnf /etc/mysql/docker-default.d/docker-my.cnf
+
 RUN chmod 755 /usr/local/bin/docker-entrypoint.sh
 
 ## Volumes
-#VOLUME ["/data/mysql/data","/data/mysql/logs","/etc/mysql/docker-default.d"]
+VOLUME ["/data/db","/data/logs","/etc/mysql/docker-default.d"]
 
 ## Entrypoint
 ENTRYPOINT ["docker-entrypoint.sh"]

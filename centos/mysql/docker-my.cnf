@@ -1,5 +1,5 @@
 ## This configration file opts for MySQL 5.7.
-## author: liuhongwei
+## author: Liuhongwei
 
 [client]
 port = 3306
@@ -22,6 +22,7 @@ explicit_defaults_for_timestamp = 1
 max_allowed_packet = 256M
 ## 大小写敏感，1是对大小写不敏感
 lower_case_table_names = 1
+default_time_zone='Asia/Shanghai'
 
 ##### connections #####
 max_connections = 1024
@@ -39,16 +40,16 @@ table_definition_cache = 4096 ##5.7 new,调大缓存frm表的数量
 table_open_cache_instances = 64 ##5.7 new,提升大并发下的性能
 
 ####### add start #######
-pid_file = /data/mysql/mysqld.pid
-datadir = /data/mysql/data
-slave_load_tmpdir = /data/mysql/data
+pid_file = /data/mysqld.pid
+datadir = /data/db
+slave_load_tmpdir = /data/db
 tmpdir = /tmp
 local_infile = off
 
 ##### Log setting #####
-log_error = /data/mysql/logs/error.log
+log_error = /data/logs/error.log
 slow_query_log = 1
-slow_query_log_file = /data/mysql/logs/slow.log
+slow_query_log_file = /data/logs/slow.log
 log_timestamps = system ##5.7 new
 log_queries_not_using_indexes = 1
 log_slow_admin_statements = 1
@@ -63,7 +64,7 @@ event_scheduler = 1 # 默认启用事件功能
 ##### Replication settings #####
 ## Replication Master Server (default)
 server-id = 111
-log_bin = /data/mysql/logs/binlog/mysqld-bin
+log_bin = /data/logs/binlog/mysqld-bin
 master_info_repository = TABLE
 relay_log_info_repository = TABLE
 sync_binlog = 1
@@ -75,9 +76,9 @@ binlog-rows-query-log-events = 1 # 开启RBR模式下SQL记录
 log-bin-trust-function-creators = 1
 
 ## Replication Slave Server (comment out master section to use this)
-report_host  = mysql-docker 
+report_host  = mysql-docker
 report_port = 3306
-relay_log = /data/mysql/logs/relaylog/relay-bin
+relay_log = /data/logs/relaylog/relay-bin
 binlog_gtid_simple_recovery = 1 ##5.7 new
 slave_skip_errors = all
 slave-rows-search-algorithms = 'INDEX_SCAN,HASH_SCAN'
@@ -113,18 +114,18 @@ myisam_max_sort_file_size = 256M
 myisam_repair_threads = 1
 
 #####  INNODB setting  ######
-innodb_data_home_dir = /data/mysql/data
-innodb_log_group_home_dir = /data/mysql/data/
-innodb_undo_directory = /data/mysql/data/
+innodb_data_home_dir = /data/db
+innodb_log_group_home_dir = /data/db
+innodb_undo_directory = /data/db
 innodb_page_size = 16K
 innodb_page_cleaners = 16 ##5.7 new
 innodb_buffer_pool_size = 256M  ## 默认128M
 innodb_buffer_pool_instances = 16
 innodb_buffer_pool_load_at_startup = 1
-innodb_buffer_pool_dump_at_sh
+innodb_buffer_pool_dump_at_shutdown = 1
 innodb_buffer_pool_dump_pct = 40 ##5.7 new
 innodb_data_file_path = ibdata1:128M:autoextend
-innodb_log_file_size = 256M
+innodb_log_file_size = 128M
 innodb_log_files_in_group = 2
 innodb_log_buffer_size = 16M
 innodb_sort_buffer_size = 64M
@@ -158,7 +159,7 @@ innodb_lock_wait_timeout = 120
 transaction_write_set_extraction = MURMUR32
 
 ##### semi sync replication settings #####
-plugin_dir = /usr/lib64/mysql/plugin 
+plugin_dir = /usr/lib64/mysql/plugin
 plugin_load = "rpl_semi_sync_master=semisync_master.so;rpl_semi_sync_slave=semisync_slave.so;validate_password.so"
 rpl_semi_sync_master_enabled = 1
 rpl_semi_sync_slave_enabled = 1
