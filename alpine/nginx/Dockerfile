@@ -27,8 +27,10 @@ COPY nginx.conf /etc/nginx/nginx.conf
 COPY default.conf /etc/nginx/conf.d/default.conf
 COPY index.html /data/www/index.html
 
-EXPOSE 80
+WORKDIR /root
 
 STOPSIGNAL SIGTERM
 
 CMD ["nginx", "-g", "daemon off;"]
+
+EXPOSE 80
