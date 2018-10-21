@@ -7,7 +7,9 @@ docker build --no-cache -t 'weihoop/tomcat:8.5.15' .
 ## docker run example
 
 ```
-docker run -itd --name tomcat1 weihoop/tomcat:8.5.15
+docker run -itd --name tomcat1 -p 8080:8080 \
+       -v /data/docker/tomcat1/webapps:/usr/local/tomcat/webapps \
+       weihoop/tomcat:8.5.15
 ```
 
 ## docker exec example
