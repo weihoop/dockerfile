@@ -1,10 +1,10 @@
-## build command example
+### build command example
 
 ```
 docker build --no-cache -t 'weihoop/tomcat:8.5.15' .
 ```
 
-## docker run example
+### docker run example
 
 ```
 docker run -itd --name tomcat1 -p 8080:8080 \
@@ -12,7 +12,7 @@ docker run -itd --name tomcat1 -p 8080:8080 \
        weihoop/tomcat:8.5.15
 ```
 
-## docker exec example
+### docker exec example
 
 ```
 docker exec -it tomcat1 bash
