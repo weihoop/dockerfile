@@ -1,4 +1,4 @@
-# 镜像基于 weihoop/alpine镜像制作 
+# Create redis alpine images 
 FROM redis:3.2.12-alpine3.8 
 MAINTAINER "Liuhongwei <weihoop@gmail.com>"
 # 设置locale
@@ -28,7 +28,5 @@ WORKDIR /root
 ENTRYPOINT ["docker-entrypoint.sh"]
 
 CMD ["redis-server","/etc/redis.conf"]
-#CMD ["redis-server"]
-#CMD ["/bin/bash"]
 
 EXPOSE 6379
