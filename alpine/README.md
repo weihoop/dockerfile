@@ -7,5 +7,5 @@ jdk      | 自制镜像   | 二进制
 tomcat   | 自制镜像   | 二进制
 nginx    | DockerHub  |
 php-fpm  | DockerHub  |
-redid    | DockerHub  |
+redis    | DockerHub  |
 mongo    | 自制镜像   | apk 
