@@ -15,6 +15,6 @@ docker run -itd --name mysql1 -p 3306:3306 -v /data/docker/mysql/data:/data/mysq
 docker exec -it mysql1 bash
 ```
 
-### 参考: 
+### 参考文档
 
 - https://github.com/cytopia/docker-mysql-5.7/blob/master/Dockerfile
