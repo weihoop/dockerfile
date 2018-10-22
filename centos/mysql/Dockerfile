@@ -87,6 +87,7 @@ RUN groupadd -g ${MY_GID} -r ${MY_GROUP} && \
     \
     echo "[mysql]"                                         >> /etc/my.cnf && \
     echo "socket = ${MYSQL_DEF_SCK}/mysqld.sock"           >> /etc/my.cnf && \
+    echo "prompt=\"\\\u@\\\h:\\\d \\\r:\\\m:\\\s >\""      >> /etc/my.cnf && \
     echo ""                                                >> /etc/my.cnf && \
     \
     echo "[mysqld]"                                        >> /etc/my.cnf && \
