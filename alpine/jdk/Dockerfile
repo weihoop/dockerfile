@@ -3,8 +3,8 @@ FROM weihoop/alpine:3.8
 MAINTAINER "Liuhongwei <weihoop@gmail.com>"
 
 ENV JAVA_HOME="/usr/local/jdk"
-ENV PATH="${PATH}:${JAVA_HOME}/bin"
-ENV CLASSPATH=".:${JAVA_HOME}/jre/lib/rt.jar:${JAVA_HOME}/lib/tools.jar"
+ENV PATH="${PATH}:${JAVA_HOME}/bin" \
+    CLASSPATH=".:${JAVA_HOME}/jre/lib/rt.jar:${JAVA_HOME}/lib/tools.jar"
 
 # MD5 (jdk-8u121-linux-x64.tar.gz) = 91972fb4e753f1b6674c2b952d974320
 #ADD jdk-8u121-linux-x64.tar.gz /usr/local/
