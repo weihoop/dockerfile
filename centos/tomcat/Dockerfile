@@ -1,6 +1,7 @@
 # create tomcat image
 FROM weihoop/jdk:1.8.0
 MAINTAINER "Liuhongwei <weihoop@gmail.com>"
+
 ENV CATALINA_HOME="/usr/local/tomcat"
 ENV PATH="${CATALINA_HOME}/bin:${PATH}"
 
