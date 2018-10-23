@@ -3,8 +3,8 @@ FROM weihoop/centos
 MAINTAINER "Liuhongwei <weihoop@gmail.com>"
 
 ENV JAVA_HOME="/usr/local/jdk"
-ENV CLASSPATH=".:${JAVA_HOME}/jre/lib/rt.jar:${JAVA_HOME}/lib/tools.jar"
-ENV PATH="${JAVA_HOME}/bin:${PATH}"
+ENV CLASSPATH=".:${JAVA_HOME}/jre/lib/rt.jar:${JAVA_HOME}/lib/tools.jar" \
+    PATH="${JAVA_HOME}/bin:${PATH}"
 
 # MD5 (jdk-8u121-linux-x64.tar.gz) = 91972fb4e753f1b6674c2b952d974320
 #ADD jdk-8u121-linux-x64.tar.gz /usr/local/
