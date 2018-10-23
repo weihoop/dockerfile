@@ -3,7 +3,6 @@ FROM weihoop/jdk:latest
 MAINTAINER "Liuhongwei <weihoop@gmail.com>"
 
 ENV TOMCAT_VERSION 8.5.15
-
 ENV CATALINA_HOME="/usr/local/tomcat"
 ENV PATH=${CATALINA_HOME}/bin:${PATH}
 

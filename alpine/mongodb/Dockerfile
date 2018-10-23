@@ -2,7 +2,6 @@
 FROM weihoop/alpine:3.8 
 MAINTAINER "Liuhongwei <weihoop@gmail.com>"
 
-
 COPY mongod.conf /etc/mongod.conf
 COPY docker-entrypoint.sh /usr/local/bin/docker-entrypoint.sh
 

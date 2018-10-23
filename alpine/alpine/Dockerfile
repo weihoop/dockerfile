@@ -1,11 +1,11 @@
-# 制作alpine基础镜像 
+# 制作alpine基础镜像
 FROM alpine:3.8
 MAINTAINER "Liuhongwei <weihoop@gmail.com>"
 # 设置locale
-ENV LANG en_US.UTF-8
-ENV LANGUAGE en_US:en
-ENV LC_ALL en_US.UTF-8
-ENV TZ=Asia/Shanghai
+ENV LANG="en_US.UTF-8"   \
+    LANGUAGE="en_US:en"  \
+    LC_ALL="en_US.UTF-8" \
+    TZ="Asia/Shanghai"
 
 COPY alias.env /etc/profile.d/alias.env
 COPY bashrc /root/.bashrc

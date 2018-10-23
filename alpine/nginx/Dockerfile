@@ -1,11 +1,11 @@
 # create tomcat image
-FROM nginx:1.14.0-alpine 
+FROM nginx:1.14.0-alpine
 MAINTAINER "Liuhongwei <weihoop@gmail.com>"
 # 设置locale
-ENV LANG en_US.UTF-8
-ENV LANGUAGE en_US:en
-ENV LC_ALL en_US.UTF-8
-ENV TZ=Asia/Shanghai
+ENV LANG="en_US.UTF-8"   \
+    LANGUAGE="en_US:en"  \
+    LC_ALL="en_US.UTF-8" \
+    TZ="Asia/Shanghai"
 
 # 修改源及常用软件
 RUN mkdir -p /etc/apk/ && \
@@ -16,8 +16,10 @@ RUN mkdir -p /etc/apk/ && \
     apk add --no-cache bash curl util-linux tree tzdata && \
     sed -i '/^root/ {s/ash/bash/}' /etc/passwd && \
     # 新建web目录
+    usermod -u 99 nobody && \
+    groupmod -g 99 nobody && \
     mkdir -p /data/www && \
-    chown nobody.nobody /var/cache/nginx /data/www
+    chown 99.99 -R /var/cache/nginx /data/www
 
 # 优化系统操作
 COPY alias.env /etc/profile.d/alias.env
