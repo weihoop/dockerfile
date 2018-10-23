@@ -1,6 +1,7 @@
 # 镜像基于weihoop/centos镜像制作 
 FROM weihoop/centos:latest
 MAINTAINER "Liuhongwei <weihoop@gmail.com>"
+
 ENV REDIS_HOME=/usr/local/redis
 ENV PATH=${REDIS_HOME}/bin:${PATH}
 
