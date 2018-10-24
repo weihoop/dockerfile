@@ -13,7 +13,7 @@ RUN apk add --no-cache mongodb=3.6.7-r0 && \
 
 VOLUME ["/data/db","/data/logs" ]
 
-ENTRYPOINT [ "docker-entrypoint.sh" ]
+#ENTRYPOINT [ "docker-entrypoint.sh" ]
 
 CMD ["mongod","-f","/etc/mongod.conf"]
 
