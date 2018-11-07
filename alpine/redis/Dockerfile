@@ -13,20 +13,21 @@ RUN mkdir -p /etc/apk && \
     echo "http://mirrors.aliyun.com/alpine/latest-stable/community/" >> /etc/apk/repositories && \
     apk add --no-cache --update ca-certificates && \
     apk add --no-cache --update bash curl util-linux tree tzdata && \
-    sed -i '/^root/ {s/ash/bash/}' /etc/passwd && \ 
-    mkdir -p /var/log/redis
+    sed -i '/^root/ {s/ash/bash/}' /etc/passwd && \
+    #chmod 755 /usr/local/bin/docker-entrypoint.sh && \
+    mkdir /var/log/redis && chown redis.redis /var/log/redis
 
 # 优化系统操作
 COPY alias.env /etc/profile.d/alias.env
 COPY bashrc /root/.bashrc
 
+# 拷贝redis配置
 COPY redis.conf /etc/redis.conf
-COPY docker-entrypoint.sh /usr/local/bin/docker-entrypoint.sh
-
-RUN chmod 755 /usr/local/bin/docker-entrypoint.sh
 
 WORKDIR /root
 
-ENTRYPOINT ["docker-entrypoint.sh"]
+VOLUME ["/data", "/var/log/redis"]
+
+CMD ["/etc/redis.conf"]
 
 EXPOSE 6379
