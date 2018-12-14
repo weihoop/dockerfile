@@ -6,7 +6,7 @@ MAINTAINER "Liuhongwei <weihoop@gmail.com>"
 LABEL \
     name="weihoop's MySQL 5.7 Image" \
     image="mysql-5.7" \
-    vendor="cytopia" \
+    vendor="weihoop" \
     license="MIT" \
     build-date="2018-1-1"
 
@@ -93,15 +93,32 @@ RUN groupadd -g ${MY_GID} -r ${MY_GROUP} && \
     echo "[mysqld]"                                        >> /etc/my.cnf && \
     echo "skip-host-cache"                                 >> /etc/my.cnf && \
     echo "skip-name-resolve"                               >> /etc/my.cnf && \
-    echo "datadir = ${MYSQL_DEF_DAT}"                      >> /etc/my.cnf && \
     echo "user = ${MY_USER}"                               >> /etc/my.cnf && \
     echo "port = 3306"                                     >> /etc/my.cnf && \
     echo "bind-address = 0.0.0.0"                          >> /etc/my.cnf && \
-    echo "socket = ${MYSQL_DEF_SCK}/mysqld.sock"           >> /etc/my.cnf && \
+    echo "socket = /tmp/mysqld.sock"                       >> /etc/my.cnf && \
+    echo "sql_mode = "STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION,NO_ZERO_DATE,NO_ZERO_IN_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER""                                                                            >> /etc/my.cnf && \
     echo "pid-file = ${MYSQL_DEF_PID}/mysqld.pid"          >> /etc/my.cnf && \
+    echo "datadir = ${MYSQL_DEF_DAT}"                      >> /etc/my.cnf && \
+    echo "tmpdir= ${MYSQL_DEF_DAT}"                        >> /etc/my.cnf && \
+    echo "autocommit = 1"                                  >> /etc/my.cnf && \
+    echo "character_set_server=utf8"                       >> /etc/my.cnf && \
+    echo "transaction_isolation = READ-COMMITTED"          >> /etc/my.cnf && \
+    echo "explicit_defaults_for_timestamp = 1"             >> /etc/my.cnf && \
+    echo "max_allowed_packet = 256M"                       >> /etc/my.cnf && \
+    echo "skip-ssl"                                        >> /etc/my.cnf && \
+    echo ""                                                >> /etc/my.cnf && \
+    echo "wait_timeout = 1800"                             >> /etc/my.cnf && \
+    echo "interactive_timeout = 1800"                      >> /etc/my.cnf && \
+    echo "lock_wait_timeout = 1800"                        >> /etc/my.cnf && \
+    echo "log_timestamps = system"                         >> /etc/my.cnf && \
+    echo "default-time-zone = '+8:00'"                     >> /etc/my.cnf && \
+    echo ""                                                >> /etc/my.cnf && \
     echo "general_log_file = ${MYSQL_LOG_QUERY}"           >> /etc/my.cnf && \
     echo "slow_query_log_file = ${MYSQL_LOG_SLOW}"         >> /etc/my.cnf && \
     echo "log-error = ${MYSQL_LOG_ERROR}"                  >> /etc/my.cnf && \
+    echo "long_query_time = 2"                             >> /etc/my.cnf && \
+    echo "expire_logs_days = 30"                           >> /etc/my.cnf && \
     echo ""                                                >> /etc/my.cnf && \
     echo "!includedir ${MYSQL_BASE_INCL}/"                 >> /etc/my.cnf && \
     echo "!includedir ${MYSQL_CUST_INCL1}/"                >> /etc/my.cnf && \
