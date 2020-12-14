@@ -1,13 +1,13 @@
 ### build command
 
 ```
-docker build --no-cache -t 'weihoop/nginx:demo1' .
+docker build --no-cache -t 'weihoop/nginx:demo-v1' .
 ```
 
 ### docker run example
 
 ```
-docker run -itd --name nginx1 weihoop/nginx:demo1
+docker run -itd --name nginx1 weihoop/nginx:demo-v1
 ```
 
 ### docker exec example
